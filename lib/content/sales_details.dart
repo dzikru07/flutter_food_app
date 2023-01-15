@@ -45,111 +45,127 @@ class _SalesDetailsPageState extends State<SalesDetailsPage> {
 
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Color(0xffF9F9F9),
         body: Padding(
           padding: EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Sales Details",
-                style: GoogleFonts.poppins(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
-              ),
-              Container(
-                height: 2,
-                margin: EdgeInsets.fromLTRB(0, 8, 0, 20),
-                decoration: BoxDecoration(
-                  color: Colors.black,
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Sales Details",
+                  style: GoogleFonts.poppins(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black),
                 ),
-              ),
-              Text(
-                'Sales Statistics',
-                style: GoogleFonts.poppins(
-                    fontSize: 12,
-                    fontWeight: FontWeight.normal,
-                    color: Colors.black),
-              ),
-              Row(
-                children: [
-                  Text(
-                    "Rp. ${totalIncome()}",
-                    style: GoogleFonts.poppins(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black),
+                Container(
+                  height: 2,
+                  margin: EdgeInsets.fromLTRB(0, 8, 0, 20),
+                  decoration: BoxDecoration(
+                    color: Colors.black,
                   ),
-                  SizedBox(
-                    width: 15,
-                  ),
-                  Text(
-                    'in a month',
-                    style: GoogleFonts.poppins(
-                        fontSize: 12,
-                        fontWeight: FontWeight.normal,
-                        color: Colors.black),
-                  ),
-                ],
-              ),
-              Expanded(
-                  child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: salesData.length,
-                      itemBuilder: ((context, index) {
-                        return Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Container(
-                              height: 40 *
-                                  double.parse(
-                                      salesData[index].value.toString()),
-                              width: size.width / 4.7,
-                              margin: EdgeInsets.only(bottom: 15),
-                              decoration: BoxDecoration(
-                                  color: salesData[index].colorData,
-                                  borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(15),
-                                      topRight: Radius.circular(15))),
-                            ),
-                            Container(
-                                padding: EdgeInsets.all(8),
+                ),
+                Text(
+                  'Sales Statistics',
+                  style: GoogleFonts.poppins(
+                      fontSize: 12,
+                      fontWeight: FontWeight.normal,
+                      color: Colors.black),
+                ),
+                Row(
+                  children: [
+                    Text(
+                      "Rp. ${totalIncome()}",
+                      style: GoogleFonts.poppins(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
+                    ),
+                    SizedBox(
+                      width: 15,
+                    ),
+                    Text(
+                      'in a month',
+                      style: GoogleFonts.poppins(
+                          fontSize: 12,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.black),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                    height: 200,
+                    child: ListView.builder(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: salesData.length,
+                        itemBuilder: ((context, index) {
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Container(
+                                height: 40 *
+                                    double.parse(
+                                        salesData[index].value.toString()),
+                                width: size.width / 4.7,
+                                margin: EdgeInsets.only(bottom: 15),
                                 decoration: BoxDecoration(
-                                    color: Colors.grey[300],
-                                    borderRadius: BorderRadius.circular(5)),
-                                child: Text(
-                                  salesData[index].weekData.toString(),
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black),
-                                ))
-                          ],
-                        );
-                      }))),
-              SizedBox(
-                height: 20,
-              ),
-              Text(
-                "Best Sellers",
-                style: GoogleFonts.poppins(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Expanded(
+                                    color: salesData[index].colorData,
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(15),
+                                        topRight: Radius.circular(15))),
+                              ),
+                              Container(
+                                  padding: EdgeInsets.all(8),
+                                  decoration: BoxDecoration(
+                                      color: Colors.grey[300],
+                                      borderRadius: BorderRadius.circular(5)),
+                                  child: Text(
+                                    salesData[index].weekData.toString(),
+                                    style: GoogleFonts.poppins(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black),
+                                  ))
+                            ],
+                          );
+                        }))),
+                SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  "Best Sellers",
+                  style: GoogleFonts.poppins(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                SizedBox(
+                  height: 200,
                   child: ListView.builder(
+                      shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
                       itemCount: productList.length,
                       itemBuilder: ((context, index) {
                         return Container(
-                          margin: EdgeInsets.only(right: 15),
+                          margin: EdgeInsets.only(right: 15, bottom: 10),
                           height: double.minPositive,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Color.fromARGB(255, 226, 226, 226)
+                                      .withOpacity(0.6),
+                                  spreadRadius: 5,
+                                  blurRadius: 7,
+                                  offset: Offset(
+                                      0, 3), // changes position of shadow
+                                ),
+                              ],
                               color: Colors.white),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -180,25 +196,27 @@ class _SalesDetailsPageState extends State<SalesDetailsPage> {
                             ],
                           ),
                         );
-                      }))),
-              SizedBox(
-                height: 10,
-              ),
-              Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(15),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: mainColor),
-                  child: Text(
-                    "monthly report",
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.poppins(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
-                  ))
-            ],
+                      })),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.all(15),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: mainColor),
+                    child: Text(
+                      "monthly report",
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.poppins(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ))
+              ],
+            ),
           ),
         ),
       ),

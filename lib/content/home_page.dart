@@ -49,6 +49,7 @@ class _OrderPageState extends State<OrderPage> {
     }
 
     return Scaffold(
+      backgroundColor: Color(0xffF9F9F9),
       appBar: AppBar(
         title: Text(
           "Detail Order",
@@ -130,6 +131,14 @@ class _OrderPageState extends State<OrderPage> {
                           (element) => element.name == searchData[index].name);
                       return Container(
                         margin: EdgeInsets.only(bottom: 20),
+                        padding: EdgeInsets.only(bottom: 15),
+                        decoration: BoxDecoration(
+                          border: Border(
+                              bottom: BorderSide(
+                            color: Colors.grey,
+                            width: 1,
+                          )),
+                        ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -223,10 +232,23 @@ class _OrderPageState extends State<OrderPage> {
                         ),
                       );
                     }))),
+            SizedBox(
+              height: 10,
+            ),
             Container(
               padding: EdgeInsets.all(15),
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15), color: mainColor),
+                borderRadius: BorderRadius.circular(15),
+                color: mainColor,
+                boxShadow: [
+                  BoxShadow(
+                    color: Color.fromARGB(255, 177, 177, 177).withOpacity(0.6),
+                    spreadRadius: 5,
+                    blurRadius: 7,
+                    offset: Offset(0, 3), // changes position of shadow
+                  ),
+                ],
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
