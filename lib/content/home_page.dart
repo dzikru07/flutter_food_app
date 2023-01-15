@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_food_app/content/sales_details.dart';
 import 'package:flutter_food_app/model/product_model.dart';
 import 'package:flutter_food_app/style/color.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -31,7 +32,6 @@ class _OrderPageState extends State<OrderPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     searchData = productList;
   }
@@ -249,13 +249,21 @@ class _OrderPageState extends State<OrderPage> {
                       )
                     ],
                   ),
-                  Container(
-                    padding: EdgeInsets.all(15),
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle, color: Colors.white),
-                    child: Icon(
-                      Icons.arrow_forward_ios_rounded,
-                      color: Colors.grey,
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: ((context) => SalesDetailsPage())));
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(15),
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle, color: Colors.white),
+                      child: Icon(
+                        Icons.arrow_forward_ios_rounded,
+                        color: Colors.grey,
+                      ),
                     ),
                   )
                 ],
@@ -265,108 +273,5 @@ class _OrderPageState extends State<OrderPage> {
         ),
       ),
     );
-  }
-
-  Expanded ListProduct() {
-    return Expanded(
-        flex: 2,
-        child: ListView.builder(
-            shrinkWrap: true,
-            itemCount: productList.length,
-            itemBuilder: ((context, index) {
-              var data = productAdd.indexWhere(
-                  (element) => element.name == productList[index].name);
-              return Container(
-                margin: EdgeInsets.only(bottom: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        Stack(
-                          alignment: AlignmentDirectional.center,
-                          children: [
-                            Image.asset(productList[index].image.toString()),
-                            data == -1
-                                ? SizedBox()
-                                : Opacity(
-                                    opacity: 0.5,
-                                    child: Container(
-                                      width: 70,
-                                      height: 55,
-                                      decoration: BoxDecoration(
-                                          color: Color(0xff78F858),
-                                          borderRadius:
-                                              BorderRadius.circular(8)),
-                                    ),
-                                  ),
-                            data == -1
-                                ? SizedBox()
-                                : InkWell(
-                                    onTap: () {
-                                      setState(() {
-                                        productAdd.removeAt(data);
-                                        // print(data);
-                                      });
-                                    },
-                                    child: Container(
-                                        padding: EdgeInsets.all(3),
-                                        decoration: BoxDecoration(
-                                            color: Colors.red,
-                                            borderRadius:
-                                                BorderRadius.circular(2)),
-                                        child: Text(
-                                          "REMOVE",
-                                          style: GoogleFonts.poppins(
-                                              color: Colors.white,
-                                              fontSize: 8,
-                                              fontWeight: FontWeight.w500),
-                                        )),
-                                  ),
-                          ],
-                        ),
-                        SizedBox(
-                          width: 15,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              productList[index].name.toString(),
-                              style: GoogleFonts.poppins(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                  color: Colors.black87),
-                            ),
-                            Text(
-                              "Rp. ${productList[index].price.toString()}",
-                              style: GoogleFonts.poppins(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 12,
-                                  color: Colors.grey),
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          productAdd.add(ProductModel(
-                              productList[index].name.toString(),
-                              productList[index].price.toString(),
-                              productList[index].image.toString()));
-                        });
-                      },
-                      child: Icon(
-                        Icons.add,
-                        color: mainColor,
-                        size: 30,
-                      ),
-                    )
-                  ],
-                ),
-              );
-            })));
   }
 }
