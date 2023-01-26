@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_food_app/style/color.dart';
-
-import 'content/home_page.dart';
+import 'package:flutter_food_app/content/home_page.dart';
+import 'style/color.dart';
 
 void main() {
   runApp(const MyApp());

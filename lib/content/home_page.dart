@@ -1,6 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_food_app/content/sales_details.dart';
-import 'package:flutter_food_app/model/product_model.dart';
+import 'package:flutter_food_app/model/product_models.dart';
 import 'package:flutter_food_app/style/color.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -14,26 +16,34 @@ class OrderPage extends StatefulWidget {
 class _OrderPageState extends State<OrderPage> {
   TextEditingController searchBar = TextEditingController();
 
-  List<ProductModel> productList = [
-    ProductModel(
-        "Straberry Cake", "12000", "assets/images/strawberry_cake.png"),
-    ProductModel(
-        "Pizza Mozarella", "16000", "assets/images/pizza_mozarella.png"),
-    ProductModel(
-        "Vegetarians Main", "19000", "assets/images/Vegeratian_main.png"),
-    ProductModel("Burger Big", "22000", "assets/images/burger_big.png"),
-    ProductModel(
-        "Vegetarian Comp", "17000", "assets/images/Vegeratian_comp.png"),
+  List<ProductModels> productList = [
+    ProductModels(
+        "Straberry Cake", "1200", "assets/images/strawberry_cake.png"),
+    ProductModels(
+        "Pizza Mozarella", "1600", "assets/images/pizza_mozarella.png"),
+    ProductModels(
+        "Vegetarians Main", "1900", "assets/images/Vegeratian_main.png"),
+    ProductModels("Burger Big", "2200", "assets/images/burger_big.png"),
+    ProductModels(
+        "Vegetarian Comp", "1700", "assets/images/Vegeratian_main.png"),
   ];
 
-  late List<ProductModel> productAdd = [];
+  late List<ProductModels> productAdd = [];
 
-  late List<ProductModel> searchData = [];
+  late List<ProductModels> searchData = [];
 
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
     searchData = productList;
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    searchBar.dispose();
   }
 
   @override
@@ -49,7 +59,7 @@ class _OrderPageState extends State<OrderPage> {
     }
 
     return Scaffold(
-      backgroundColor: Color(0xffF9F9F9),
+      backgroundColor: Color(0xfff9f9f9),
       appBar: AppBar(
         title: Text(
           "Detail Order",
@@ -63,13 +73,11 @@ class _OrderPageState extends State<OrderPage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Stack(
-              alignment: AlignmentDirectional.center,
               children: [
                 Container(
                   padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    shape: BoxShape.rectangle,
                     borderRadius: BorderRadius.circular(12),
                     boxShadow: [
                       BoxShadow(
@@ -87,11 +95,11 @@ class _OrderPageState extends State<OrderPage> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                  padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
                   child: TextField(
                     textAlignVertical: TextAlignVertical.center,
                     controller: searchBar,
-                    onChanged: ((value) {
+                    onChanged: (value) {
                       value = value.toLowerCase();
                       setState(() {
                         searchData = productList.where((data) {
@@ -99,139 +107,136 @@ class _OrderPageState extends State<OrderPage> {
                           return dataProd.contains(value);
                         }).toList();
                       });
-                    }),
+                    },
                     decoration: InputDecoration(
                         hintText: "Search Product",
                         hintStyle: GoogleFonts.poppins(
-                            color: Color(0xffCECECE),
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold),
-                        suffixIcon: InkWell(
-                          onTap: () {},
-                          child: Image.asset(
-                            "assets/logo/search.png",
-                            scale: 2.0,
-                          ),
+                          color: Color(0xffcecece),
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        suffixIcon: Image.asset(
+                          "assets/logo/search.png",
+                          scale: 2.0,
                         ),
                         border: InputBorder.none),
                   ),
-                ),
+                )
               ],
             ),
             SizedBox(
               height: 15,
             ),
             Expanded(
-                flex: 2,
-                child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: searchData.length,
-                    itemBuilder: ((context, index) {
-                      var data = productAdd.indexWhere(
-                          (element) => element.name == searchData[index].name);
-                      return Container(
-                        margin: EdgeInsets.only(bottom: 20),
-                        padding: EdgeInsets.only(bottom: 15),
-                        decoration: BoxDecoration(
+              flex: 2,
+              child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: searchData.length,
+                  itemBuilder: ((context, index) {
+                    var data = productAdd.indexWhere(
+                        (element) => element.name == searchData[index].name);
+                    return Container(
+                      margin: EdgeInsets.only(bottom: 20),
+                      padding: EdgeInsets.only(bottom: 15),
+                      decoration: BoxDecoration(
                           border: Border(
-                              bottom: BorderSide(
-                            color: Colors.grey,
-                            width: 1,
-                          )),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                Stack(
-                                  alignment: AlignmentDirectional.center,
-                                  children: [
-                                    Image.asset(
-                                        searchData[index].image.toString()),
-                                    data == -1
-                                        ? SizedBox()
-                                        : Opacity(
-                                            opacity: 0.5,
-                                            child: Container(
-                                              width: 70,
-                                              height: 55,
-                                              decoration: BoxDecoration(
-                                                  color: Color(0xff78F858),
-                                                  borderRadius:
-                                                      BorderRadius.circular(8)),
+                              bottom:
+                                  BorderSide(color: Colors.grey, width: 1))),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Stack(
+                                alignment: AlignmentDirectional.center,
+                                children: [
+                                  Image.asset(
+                                      searchData[index].image.toString()),
+                                  data == -1
+                                      ? SizedBox()
+                                      : Opacity(
+                                          opacity: 0.5,
+                                          child: Container(
+                                            width: 70,
+                                            height: 55,
+                                            decoration: BoxDecoration(
+                                                color: Color(0xff78f858),
+                                                borderRadius:
+                                                    BorderRadius.circular(8)),
+                                          ),
+                                        ),
+                                  data == -1
+                                      ? SizedBox()
+                                      : InkWell(
+                                          onTap: () {
+                                            setState(() {
+                                              productAdd.removeAt(data);
+                                            });
+                                          },
+                                          child: Container(
+                                            padding: EdgeInsets.all(3),
+                                            decoration: BoxDecoration(
+                                                color: mainColor,
+                                                borderRadius:
+                                                    BorderRadius.circular(2)),
+                                            child: Text(
+                                              "REMOVE",
+                                              style: GoogleFonts.poppins(
+                                                color: Colors.white,
+                                                fontSize: 8,
+                                                fontWeight: FontWeight.w500,
+                                              ),
                                             ),
                                           ),
-                                    data == -1
-                                        ? SizedBox()
-                                        : InkWell(
-                                            onTap: () {
-                                              setState(() {
-                                                productAdd.removeAt(data);
-                                                // print(data);
-                                              });
-                                            },
-                                            child: Container(
-                                                padding: EdgeInsets.all(3),
-                                                decoration: BoxDecoration(
-                                                    color: Colors.red,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            2)),
-                                                child: Text(
-                                                  "REMOVE",
-                                                  style: GoogleFonts.poppins(
-                                                      color: Colors.white,
-                                                      fontSize: 8,
-                                                      fontWeight:
-                                                          FontWeight.w500),
-                                                )),
-                                          ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  width: 15,
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      searchData[index].name.toString(),
-                                      style: GoogleFonts.poppins(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16,
-                                          color: Colors.black87),
-                                    ),
-                                    Text(
-                                      "Rp. ${searchData[index].price.toString()}",
-                                      style: GoogleFonts.poppins(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 12,
-                                          color: Colors.grey),
-                                    )
-                                  ],
-                                )
-                              ],
-                            ),
-                            InkWell(
-                              onTap: () {
-                                setState(() {
-                                  productAdd.add(ProductModel(
-                                      searchData[index].name.toString(),
-                                      searchData[index].price.toString(),
-                                      searchData[index].image.toString()));
-                                });
-                              },
-                              child: Icon(
-                                Icons.add,
-                                color: mainColor,
-                                size: 30,
+                                        )
+                                ],
                               ),
-                            )
-                          ],
-                        ),
-                      );
-                    }))),
+                              SizedBox(
+                                width: 15,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    searchData[index].name.toString(),
+                                    style: GoogleFonts.poppins(
+                                      color: Colors.black87,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Text(
+                                    "Rp. ${searchData[index].price.toString()}",
+                                    style: GoogleFonts.poppins(
+                                      color: Colors.grey,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          InkWell(
+                            onTap: () {
+                              setState(() {
+                                productAdd.add(ProductModels(
+                                    searchData[index].name.toString(),
+                                    searchData[index].price.toString(),
+                                    searchData[index].image.toString()));
+                              });
+                            },
+                            child: Icon(
+                              Icons.add,
+                              color: mainColor,
+                              size: 30,
+                            ),
+                          )
+                        ],
+                      ),
+                    );
+                  })),
+            ),
             SizedBox(
               height: 10,
             ),
@@ -258,17 +263,19 @@ class _OrderPageState extends State<OrderPage> {
                       Text(
                         "${productAdd.length} item",
                         style: GoogleFonts.poppins(
-                            color: Colors.white,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500),
+                          color: Colors.white,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                       Text(
                         "Rp. ${totalOrder().toString()}",
                         style: GoogleFonts.poppins(
-                            color: Colors.white,
-                            fontSize: 17,
-                            fontWeight: FontWeight.w600),
-                      )
+                          color: Colors.white,
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ],
                   ),
                   InkWell(

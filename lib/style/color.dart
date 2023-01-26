@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Map<int, Color> redTheme = {
+Map<int, Color> redName = {
   50: const Color(0xffFF3636),
   100: const Color(0xffFF3636),
   200: const Color(0xffFF3636),
@@ -13,6 +13,6 @@ Map<int, Color> redTheme = {
   900: const Color(0xffFF3636),
 };
 
-MaterialColor colorTheme = MaterialColor(0xffFF3636, redTheme);
+MaterialColor colorTheme = MaterialColor(0xffFF3636, redName);
 
-Color mainColor = Color(0xffFF3636);
+Color mainColor = const Color(0xffFF3636);

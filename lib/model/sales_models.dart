@@ -1,10 +1,10 @@
 import 'dart:ui';
 
-class SalesModel {
+class SalesModels {
   String? income;
   Color? colorData;
   String? weekData;
   String? value;
 
-  SalesModel(this.income, this.colorData, this.weekData, this.value);
+  SalesModels(this.income, this.colorData, this.weekData, this.value);
 }
